@@ -5,46 +5,64 @@ class Window:
     def __init__(self, master):
         master.title("HeartRate and SPO2")
         master.geometry("1200x800")
-        master.configure(bg="#0B0B0B")
-
+        master.configure(bg="#1C1C1C")
 
 class Components:
+
     def __init__(self, master):
 
-        label = Label(master, text="Uzupełnij dane", fg='white', bg="#0B0B0B",
-              font= ('Courier', 44), anchor='center')
-        label.pack(pady=50)
+        self.label = Label(master, text="Uzupełnij dane", fg='white', bg="#1C1C1C",
+              font = ('Courier', 44), anchor='center')
+        self.label.pack(pady=50)
 
-        frame1= Frame(master, bg="#0B0B0B", width="300", height="200")
-        frame1.pack(padx=50)
+        self.frame1= Frame(master, bg="#1C1C1C", width="300", height="200")
+        self.frame1.pack(padx=50)
 
-        frame2 = Frame(master, bg="#0B0B0B", width="300", height="200")
-        frame2.pack(padx=50)
+        self.frame2 = Frame(master, bg="#1C1C1C", width="300", height="200")
+        self.frame2.pack(padx=50)
 
-        frame3 = Frame(master, bg="#0B0B0B", width="300", height="200")
-        frame3.pack(padx=50)
+        self.frame3 = Frame(master, bg="#1C1C1C", width="300", height="200")
+        self.frame3.pack(padx=50)
 
-        label2 = Label(frame1, text="Imie", fg="white", font=('Courier', 35)
-                       , bg="#0B0B0B", anchor='center')
-        label2.pack()
+        self.label2 = Label(self.frame1, text="Imie", fg="white", font=('Courier', 35)
+                    , bg="#1C1C1C", anchor='center')
+        self.label2.pack()
 
-        label3 = Label(frame2, text="Wiek", fg="white", font=('Courier', 35)
-                       , bg="#0B0B0B", anchor='center')
-        label3.pack()
+        self.label3 = Label(self.frame2, text="Wiek", fg="white", font=('Courier', 35)
+                       , bg="#1C1C1C", anchor='center')
+        self.label3.pack()
 
-        label4 = Label(frame3, text="Email", fg="white", font=('Courier', 35)
-                       , bg="#0B0B0B", anchor='center')
-        label4.pack()
+        self.label4 = Label(self.frame3, text="Email", fg="white", font=('Courier', 35)
+                       , bg="#1C1C1C", anchor='center')
+        self.label4.pack()
 
-        entry1=Entry(frame1, font=('Courier', 35))
-        entry2=Entry(frame2, font=('Courier', 35))
-        entry3=Entry(frame3, font=('Courier', 35))
-        entry1.pack()
-        entry2.pack()
-        entry3.pack()
+        self.entry1 = Entry(self.frame1, font=('Courier', 35))
+        self.entry2 = Entry(self.frame2, font=('Courier', 35))
+        self.entry3 = Entry(self.frame3, font=('Courier', 35))
+        self.entry1.pack()
+        self.entry2.pack()
+        self.entry3.pack()
+
+    def Create_Button (self, master):
+
+        self.canvas = Canvas(master, bg="#1C1C1C", width="230", height="120")
+        self.canvas.pack(pady=50)
+        self.canvas.create_rectangle(0,120,230,0)
+        self.canvas.bind("<Enter>",Events.enter_on_canvas)
+        self.canvas.bind("<Leave>", Events.leave_on_canvas)
+        self.canvas.create_text(115,60,fill="white",font=("Courier",35),
+                        text="Pomiar")
+
+class Events:
+    def enter_on_canvas(event):
+        C.canvas.configure(bg="#151515")
+    def leave_on_canvas(event):
+        C.canvas.configure(bg="#1C1C1C")
 
 
 root = Tk()
+E=Events
 Window(root)
-Components(root)
+C=Components(root)
+C.Create_Button(root)
 root.mainloop()
